@@ -1,18 +1,17 @@
 package model;
-
-import java.util.regex.Pattern;
+import checker.Checker;
 
 public final class Customer {
-    String firstName;
-    String lastName;
-    String emil;
+    private final String firstName;
+    private final String lastName;
+    private final String emil;
 
     public Customer(String email,String firstName,String lastName)
     {
         this.firstName = firstName;
         this.lastName = lastName;
 
-        if(checkEmail(email))
+        if(Checker.checkEmail(email))
         {
             this.emil = email;
         }
@@ -27,13 +26,5 @@ public final class Customer {
     @Override
     public String toString() {
         return "Name : " + firstName + " " + lastName + " ,Emil is " + emil;
-    }
-
-    private boolean checkEmail(String email)
-    {
-        String emailPattern = "^(.+)@(.+).(.+)$";
-        Pattern pattern = Pattern.compile(emailPattern);
-
-        return pattern.matcher(email).matches();
     }
 }

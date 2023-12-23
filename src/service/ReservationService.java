@@ -74,39 +74,32 @@ public class ReservationService {
 
     public List<IRoom> findRooms(Date checkInDate,Date ckeckOutDate)
     {
-        if(ckeckOutDate != null)
+        if(checkInDate==null && ckeckOutDate==null) {
+            throw new IllegalArgumentException("Check IN or Check Out Date is Null");
+        }
+        if(!ckeckOutDate.after(checkInDate)) {
+            throw new IllegalArgumentException("Check IN Date is later than Check Out Date");
+        }
+
+        List<IRoom> foundRooms = new LinkedList<IRoom>();
+        for(String roomID : mapOfRoom.keySet())
         {
-            if(ckeckOutDate.after(checkInDate))
+            if(mapOfReservation.containsKey(roomID))
             {
-                List<IRoom> foundRooms = new LinkedList<IRoom>();
-                for(String roomID : mapOfRoom.keySet())
+                for(Reservation reservation : mapOfReservation.get(roomID))
                 {
-                    if(mapOfReservation.containsKey(roomID))
-                    {
-                        for(Reservation reservation : mapOfReservation.get(roomID))
-                        {
-                            if(!ckeckOutDate.after(reservation.getCheckINDate()) || !checkInDate.before(reservation.getCkeckOutDate()))
-                            {
-                                foundRooms.add(mapOfRoom.get(roomID));
-                            }
-                        }
-                    }
-                    else
+                    if(ckeckOutDate.before(reservation.getCheckINDate()) || checkInDate.after(reservation.getCkeckOutDate()))
                     {
                         foundRooms.add(mapOfRoom.get(roomID));
                     }
                 }
-                return foundRooms;
             }
             else
             {
-                throw new IllegalArgumentException("Check IN Date is later than Check Out Date");
+                foundRooms.add(mapOfRoom.get(roomID));
             }
         }
-        else
-        {
-            throw new IllegalArgumentException("Check IN Date is Null");
-        }
+        return foundRooms;
     }
 
     public List<Reservation> getCustomerReservation(Customer customer)

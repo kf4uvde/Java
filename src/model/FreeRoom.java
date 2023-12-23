@@ -8,6 +8,11 @@ public class FreeRoom extends Room{
 
     @Override
     public String toString() {
-        return "Room number : " + roomNumber + "\nRoom type : " + roomType.toString() + "\nRoom is Free";
+        return "Room number : " + roomNumber + "\nRoom type : " + roomType.toString() + "\nRoom is Free\n";
+    }
+
+    @Override
+    public boolean isFree() {
+        return true;
     }
 }

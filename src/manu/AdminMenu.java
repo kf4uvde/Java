@@ -97,7 +97,6 @@ public class AdminMenu {
                 }
             }while(!checkNumbers(roomNumber));
 
-
             do
             {
                 System.out.println("Enter price per night");
@@ -118,7 +117,7 @@ public class AdminMenu {
 
             if(Price == 0)
             {
-                new FreeRoom(roomNumber,ERoomType);
+                rooms.add(new FreeRoom(roomNumber,ERoomType));
             }
             else
             {
@@ -134,7 +133,6 @@ public class AdminMenu {
             }while (!addAnotherRoom.equalsIgnoreCase("y") && !addAnotherRoom.equalsIgnoreCase("yes") && !addAnotherRoom.equalsIgnoreCase("n") && !addAnotherRoom.equalsIgnoreCase("no"));
 
         }while (addAnotherRoom.equalsIgnoreCase("y") || addAnotherRoom.equalsIgnoreCase("yes"));
-
 
         for(IRoom room : rooms )
         {

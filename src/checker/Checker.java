@@ -15,9 +15,16 @@ public class Checker {
 
     public static boolean checkEmail(String email)
     {
-        String emailPattern = "^(.+)@(.+).(.+)$";
+        String emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(emailPattern);
-
         return pattern.matcher(email).matches();
+    }
+
+    public static boolean checkNumbers(String Numbers)
+    {
+        String numbersPattern = "^[0-9]*$";
+        Pattern pattern = Pattern.compile(numbersPattern);
+
+        return pattern.matcher(Numbers).matches();
     }
 }

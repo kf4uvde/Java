@@ -111,9 +111,12 @@ public class MainMenu {
             System.out.println("Enter CheckIn Date mm/dd/yyyy example 01/01/2023");
             if (scan.hasNextLine()) {
                 sCheckInDate = scan.nextLine();
+                if(checkDate(sCheckInDate)) {
+                    checkInDate = convertToDate(sCheckInDate);
+                }
             }
-        }while (!checkDate(sCheckInDate));
-        checkInDate = convertToDate(sCheckInDate);
+        }while (checkInDate == null);
+
 
         //User enter their check out date
         do
@@ -121,10 +124,11 @@ public class MainMenu {
             System.out.println("Enter checkOut Date mm/dd/yyyy example 01/01/2024");
             if (scan.hasNextLine()) {
                 sCheckOutDate = scan.nextLine();
+                if(checkDate(sCheckOutDate)) {
+                    checkOutDate = convertToDate(sCheckOutDate);
+                }
             }
-        }while (!checkDate(sCheckOutDate));
-        checkOutDate = convertToDate(sCheckOutDate);
-
+        }while (checkOutDate == null);
 
         List<IRoom> availableRooms = singletonHotelResource.findARoom(checkInDate,checkOutDate);
 
@@ -137,9 +141,10 @@ public class MainMenu {
             //add 7days and check again
             if(availableRooms == null || availableRooms.size() < 1)
             {
-                System.out.println("There are no match days");
+                System.out.println("There are no match days.");
                 return;
             }
+            System.out.println("There are no match days, we search 7 days after for available rooms you.");
         }
 
         //print out available Rooms
@@ -148,7 +153,6 @@ public class MainMenu {
         {
             System.out.println(room);
         }
-
 
         //------------------------------------------------Reserve
         String continuetobook = "";

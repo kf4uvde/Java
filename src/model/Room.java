@@ -1,17 +1,16 @@
 package model;
-
-import java.util.regex.Pattern;
+import checker.Checker;
 
 public class Room implements IRoom{
-    String roomNumber;
-    Double roomPrice;
-    RoomType roomType;
+    protected final String roomNumber;
+    protected final Double roomPrice;
+    protected final RoomType roomType;
 
     public Room(String roomNumber,Double roomPrice,RoomType roomType)
     {
         this.roomPrice = roomPrice;
         this.roomType = roomType;
-        if(checkNumbers(roomNumber))
+        if(Checker.checkNumbers(roomNumber))
         {
             this.roomNumber = roomNumber;
         }
@@ -19,6 +18,10 @@ public class Room implements IRoom{
         {
             throw new IllegalArgumentException("Room Number is not Numbers");
         }
+    }
+    @Override
+    public String toString() {
+        return "Room number : " + roomNumber + "\nRoom type : " + roomType.toString() + "\nRoom price : " + roomPrice+"\n";
     }
 
     @Override
@@ -37,27 +40,7 @@ public class Room implements IRoom{
     }
 
     @Override
-    public String toString() {
-        return "Room number : " + roomNumber + "\nRoom type : " + roomType.toString() + "\nRoom price : " + roomPrice;
-    }
-
-    @Override
     public boolean isFree() {
-        if(roomPrice == 0)
-        {
-            return true;
-        }
-        else
-        {
             return false;
-        }
-    }
-
-    private boolean checkNumbers(String Numbers)
-    {
-        String numbersPattern = "^[0-9]*$";
-        Pattern pattern = Pattern.compile(numbersPattern);
-
-        return pattern.matcher(Numbers).matches();
     }
 }
